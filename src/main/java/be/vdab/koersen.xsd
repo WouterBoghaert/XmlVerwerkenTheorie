@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.vdab.be/koersen" xmlns="http://www.vdab.be/koersen"
+	elementFormDefault="qualified">
+	<xs:simpleType name="Code">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[A-Z]{3}"></xs:pattern>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Koers">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="4" />
+			<xs:minExclusive value="0" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="Munt">
+		<xs:attribute name="code" type="Code" use="required" />
+		<xs:attribute name="koers" type="Koers" use="required" />
+	</xs:complexType>
+	<xs:complexType name="Koersen">
+		<xs:sequence>
+			<xs:element name="datum" type="xs:date" />
+			<xs:element name="munt" type="Munt" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="koersen" type="Koersen" />
+</xs:schema>
